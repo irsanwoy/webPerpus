@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Nov 10, 2023 at 06:48 PM
--- Server version: 10.4.6-MariaDB
--- PHP Version: 7.3.10
+-- Host: 127.0.0.1
+-- Generation Time: Jun 20, 2024 at 10:53 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,15 +33,15 @@ CREATE TABLE `admin` (
   `password` varchar(25) NOT NULL,
   `kode_admin` varchar(12) NOT NULL,
   `no_tlp` varchar(13) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `admin`
 --
 
 INSERT INTO `admin` (`id`, `nama_admin`, `password`, `kode_admin`, `no_tlp`) VALUES
-(1, 'bambang subroto', '1234', 'admin1', '085749051409'),
-(2, 'esti sitanggang', '4321', 'admin2', '085870283409');
+(1, 'kiki', '1234', 'admin1', '085749051409'),
+(2, 'dinda', '4321', 'admin2', '085870283409');
 
 -- --------------------------------------------------------
 
@@ -59,13 +59,14 @@ CREATE TABLE `buku` (
   `tahun_terbit` date NOT NULL,
   `jumlah_halaman` int(11) NOT NULL,
   `buku_deskripsi` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `buku`
 --
 
 INSERT INTO `buku` (`cover`, `id_buku`, `kategori`, `judul`, `pengarang`, `penerbit`, `tahun_terbit`, `jumlah_halaman`, `buku_deskripsi`) VALUES
+('6670535dc96da.png', '5', 'novel', 'Cara Branding Youtube', 'Moch Guntur', 'ulat', '3323-03-22', 23, 'uuyah'),
 ('654e505d7eda4.jpg', 'bis01', 'bisnis', 'Bussiness is fun', 'Coach yohannes g pauly', 'Rejove', '2016-11-10', 500, '7 strategi untuk membangun bisnis'),
 ('654e62742ef40.jpg', 'bis02', 'bisnis', 'Digital Marketing Strategy', 'Simon kings north', '-', '2023-11-11', 250, 'Belajar strategi pemasaran digital'),
 ('654e4dc4dc0c6.jpg', 'fil01', 'filsafat', 'Filosofi Teras', 'Henry Manampiring ', 'Kompas', '2018-11-26', 320, 'Filosofi Teras adalah sebuah buku pengantar filsafat Stoa yang dibuat khusus sebagai panduan moral anak muda. Buku ini ditulis untuk menjawab permasalahan tentang tingkat kekhawatiran yang cukup tinggi dalam skala nasional, terutama yang dialami oleh anak muda.'),
@@ -91,7 +92,7 @@ INSERT INTO `buku` (`cover`, `id_buku`, `kategori`, `judul`, `pengarang`, `pener
 
 CREATE TABLE `kategori_buku` (
   `kategori` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `kategori_buku`
@@ -120,14 +121,16 @@ CREATE TABLE `member` (
   `jurusan` varchar(50) NOT NULL,
   `no_tlp` varchar(15) NOT NULL,
   `tgl_pendaftaran` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `member`
 --
 
 INSERT INTO `member` (`nisn`, `kode_member`, `nama`, `password`, `jenis_kelamin`, `kelas`, `jurusan`, `no_tlp`, `tgl_pendaftaran`) VALUES
-(202301, 'mem01', 'mangandaralam sakti ', '$2y$10$U53PbfrWXwvMiZ42WzdyfuRLyNKAAxecgPC7ZC..4pxGA8NtlrqBS', 'Laki laki', 'XI', 'Rekayasa Perangkat Lunak', '081383877025', '2023-10-22');
+(123, '123', 'irsan', '$2y$10$CaCjCIS9Ybt6137CRBQk0.ITUvq1YsjH54z1Mc8jZdU9lRi.Tbnt.', 'Laki laki', 'X', 'Teknik Otomotif', '086576576', '2024-06-17'),
+(321, '321', 'nisty', '$2y$10$vct4KQEUpu6ksPXm9a6yluPLRYImObDSn1yMNsChe4jRyfKr.Q2kq', 'Perempuan', 'X', 'Desain Pemodelan Informasi Bangunan', '0879789', '2024-06-19'),
+(324234, '213123', 'abila', '$2y$10$WqjGhSJLlTLSU7og8RMV4Ozroj/z.IA4o9/QqrxaVBTekhjwho.6m', 'Perempuan', 'XIII', 'Rekayasa Perangkat Lunak', '097098709', '2024-06-20');
 
 -- --------------------------------------------------------
 
@@ -142,7 +145,14 @@ CREATE TABLE `peminjaman` (
   `id_admin` int(11) NOT NULL,
   `tgl_peminjaman` date NOT NULL,
   `tgl_pengembalian` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `peminjaman`
+--
+
+INSERT INTO `peminjaman` (`id_peminjaman`, `id_buku`, `nisn`, `id_admin`, `tgl_peminjaman`, `tgl_pengembalian`) VALUES
+(78, 'bis01', 321, 1, '2024-06-18', '2024-06-25');
 
 -- --------------------------------------------------------
 
@@ -159,7 +169,15 @@ CREATE TABLE `pengembalian` (
   `buku_kembali` date NOT NULL,
   `keterlambatan` enum('YA','TIDAK') NOT NULL,
   `denda` int(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `pengembalian`
+--
+
+INSERT INTO `pengembalian` (`id_pengembalian`, `id_peminjaman`, `id_buku`, `nisn`, `id_admin`, `buku_kembali`, `keterlambatan`, `denda`) VALUES
+(62, 79, 'bis02', 123, 1, '2024-06-20', 'TIDAK', 0),
+(63, 80, 'bis01', 324234, 2, '2024-06-20', 'TIDAK', 0);
 
 --
 -- Indexes for dumped tables
@@ -225,13 +243,13 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
-  MODIFY `id_peminjaman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id_peminjaman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT for table `pengembalian`
 --
 ALTER TABLE `pengembalian`
-  MODIFY `id_pengembalian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id_pengembalian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- Constraints for dumped tables

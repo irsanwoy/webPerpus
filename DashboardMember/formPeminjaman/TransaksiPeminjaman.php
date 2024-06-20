@@ -28,7 +28,8 @@ WHERE peminjaman.nisn = $akunMember");
      <nav class="navbar fixed-top bg-body-tertiary shadow-sm">
       <div class="container-fluid p-3">
         <a class="navbar-brand" href="#">
-          <img src="../../assets/logoNav.png" alt="logo" width="120px">
+        <h2 class="fw-bold text-success"><span class="text-primary">Chandra</span>Perpus</h2>
+
         </a>
         
         <a class="btn btn-tertiary" href="../dashboardMember.php">Dashboard</a>
